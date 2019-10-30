@@ -867,12 +867,18 @@ extern _Bool __samequantumd128 (_Decimal128 __x, _Decimal128 __y) __THROW;
 #ifdef __STDC_WANT_IEC_60559_DFP_EXT__
 extern _Decimal32 fmaxmagd32 (_Decimal32 __x, _Decimal32 __y) __THROW __attribute__ ((__const__));
 extern _Decimal32 __fmaxmagd32 (_Decimal32 __x, _Decimal32 __y) __THROW __attribute__ ((__const__));
+extern _Decimal32 nextupd32 (_Decimal32 __x) __THROW __attribute__ ((__const__));
+extern _Decimal32 __nextupd32 (_Decimal32 __x) __THROW __attribute__ ((__const__));
 
 extern _Decimal64 fmaxmagd64 (_Decimal64 __x, _Decimal64 __y) __THROW __attribute__ ((__const__));
 extern _Decimal64 __fmaxmagd64 (_Decimal64 __x, _Decimal64 __y) __THROW __attribute__ ((__const__));
+extern _Decimal64 nextupd64 (_Decimal64 __x) __THROW __attribute__ ((__const__));
+extern _Decimal64 __nextupd64 (_Decimal64 __x) __THROW __attribute__ ((__const__));
 
 extern _Decimal128 fmaxmagd128 (_Decimal128 __x, _Decimal128 __y) __THROW __attribute__ ((__const__));
 extern _Decimal128 __fmaxmagd128 (_Decimal128 __x, _Decimal128 __y) __THROW __attribute__ ((__const__));
+extern _Decimal128 nextupd128 (_Decimal128 __x) __THROW __attribute__ ((__const__));
+extern _Decimal128 __nextupd128 (_Decimal128 __x) __THROW __attribute__ ((__const__));
 #endif
 
 /* Classification functions.  We undefine those defined by the system math.h
