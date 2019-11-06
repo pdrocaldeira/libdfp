@@ -1,4 +1,4 @@
-/* Returns the next representable neighbor of x in the direction of plus infinity
+/* Returns the next representable neighbor of x in the direction of negative infinity
 
    Copyright (C) 2007-2019 Free Software Foundation, Inc.
 
@@ -30,14 +30,14 @@
 #include <math.h>
 #include <ieee754r_private.h>
 
-#define FUNCTION_NAME nextup
+#define FUNCTION_NAME nextdown
 
 #include <dfpmacro.h>
 
 DEC_TYPE
 INTERNAL_FUNCTION_NAME (DEC_TYPE x)
 {
-	return FUNC_D(__nextafter) (x, DEC_INFINITY);
+	return FUNC_D(__nextafter) (x, -1*DEC_INFINITY);
 }
 
 weak_alias (INTERNAL_FUNCTION_NAME, EXTERNAL_FUNCTION_NAME)

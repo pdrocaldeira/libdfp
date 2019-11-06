@@ -1,4 +1,4 @@
-/* Returns the next representable neighbor of x in the direction of plus infinity
+/* Returns the next representable neighbor of x in the direction of negative infinity
 
    Copyright (C) 2007-2019 Free Software Foundation, Inc.
 
@@ -22,22 +22,7 @@
 
    Please see libdfp/COPYING.txt for more information.  */
 
-#ifndef _DECIMAL_SIZE
-#  include <decimal32.h>
-#  define _DECIMAL_SIZE 32
-#endif
+#define _DECIMAL_SIZE 64
+#include <decimal64.h>
 
-#include <math.h>
-#include <ieee754r_private.h>
-
-#define FUNCTION_NAME nextup
-
-#include <dfpmacro.h>
-
-DEC_TYPE
-INTERNAL_FUNCTION_NAME (DEC_TYPE x)
-{
-	return FUNC_D(__nextafter) (x, DEC_INFINITY);
-}
-
-weak_alias (INTERNAL_FUNCTION_NAME, EXTERNAL_FUNCTION_NAME)
+#include "nextdownd32.c"

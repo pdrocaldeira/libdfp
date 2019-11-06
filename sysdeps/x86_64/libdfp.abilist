@@ -323,6 +323,9 @@ LIBDFP_1.0.15
  fmaxmagd128 F
  fmaxmagd32 F
  fmaxmagd64 F
+ nextdownd128 F
+ nextdownd32 F
+ nextdownd64 F
  nextupd128 F
  nextupd32 F
  nextupd64 F
