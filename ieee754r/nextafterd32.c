@@ -35,8 +35,6 @@
 #include <errno.h>
 #include <ieee754r_private.h>
 #include <numdigits.h>
-#include <stdio.h>
-
 #define FUNCTION_NAME nextafter
 
 #include <dfpmacro.h>
@@ -44,7 +42,6 @@ static DEC_TYPE
 IEEE_FUNCTION_NAME (DEC_TYPE x, DEC_TYPE y)
 {
   if (x == y) return x;
-  printf("%Hf\n", x);
   if (x == DEC_NAN || y == DEC_NAN)
   {
     if (x == DEC_NAN) return y;

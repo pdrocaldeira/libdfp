@@ -26,6 +26,6 @@
 #define _DECIMAL_SIZE 128
 #include <decimal128.h>
 #define SUBNORMAL_MIN DEC128_SUBNORMAL_MIN
-#define DEC_MAX DEC128_MAX 
+#define DEC_MAX DEC128_MAX
 
 #include "nextafterd32.c"
