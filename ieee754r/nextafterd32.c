@@ -26,63 +26,44 @@
 #ifndef _DECIMAL_SIZE
 #  include <decimal32.h>
 #  define _DECIMAL_SIZE 32
+#  define SUBNORMAL_MIN DEC32_SUBNORMAL_MIN
+#  define DEC_MAX DEC32_MAX
 #endif
 
-#include <decContext.h>
-#include <decNumber.h>
 #include <math.h>
 #include <float.h>
 #include <errno.h>
 #include <ieee754r_private.h>
+#include <numdigits.h>
+#include <stdio.h>
 
 #define FUNCTION_NAME nextafter
 
 #include <dfpmacro.h>
-
 static DEC_TYPE
 IEEE_FUNCTION_NAME (DEC_TYPE x, DEC_TYPE y)
 {
-  decContext context;
-  decNumber dn_result;
-  DEC_TYPE result;
-  DEC_TYPE epsilon;
-  decNumber dn_x;
-  decNumber dn_y;
-  decNumber dn_epsilon;
-/*  int comparison;*/
-
-  FUNC_CONVERT_TO_DN (&x, &dn_x);
-  FUNC_CONVERT_TO_DN (&y, &dn_y);
-
-  /*  Early exit for nan's */
-  if (decNumberIsNaN (&dn_x))
-    return x+x;
-  if (decNumberIsNaN (&dn_y))
-    return y+y;
-
-  /*comparison = decCompare (&dn_x, &dn_y);  */
-  /*  Early exit for equal values */
-  /*if (comparison == 0) */
-  if (x==y)
+  if (x == y) return x;
+  printf("%Hf\n", x);
+  if (x == DEC_NAN || y == DEC_NAN)
+  {
+    if (x == DEC_NAN) return y;
     return x;
-
-  epsilon = DFP_EPSILON;
-  FUNC_CONVERT_TO_DN (&epsilon, &dn_epsilon);
-
-  dn_epsilon.exponent += dn_x.digits+dn_x.exponent-1;
-
-  decContextDefault (&context, DEFAULT_CONTEXT);
-/*  if (comparison > 0)*/
-  if (x>y)
-    decNumberSubtract (&dn_result,&dn_x,&dn_epsilon,&context);
-  else
-    decNumberAdd (&dn_result,&dn_x,&dn_epsilon,&context);
-
-  FUNC_CONVERT_FROM_DN (&dn_result, &result, &context);
-  if (context.status & DEC_Overflow)
-    DFP_EXCEPT (FE_OVERFLOW);
-
-  return result;
+  }
+  DEC_TYPE epsilon = SUBNORMAL_MIN;
+  if(x == -SUBNORMAL_MIN) return -0;
+  
+  if (x > y)
+  {
+    if(x == DEC_INFINITY) return DEC_MAX;
+    epsilon *= -1;
+  }
+  else if(x == (-1*DEC_INFINITY)) return -1*DEC_MAX;
+  if (x == 0) return epsilon;
+  DEC_TYPE justified = FUNC_D(left_justify) (x);
+  int exponent = FUNC_D (getexp) (justified);
+  epsilon = FUNC_D (setexp) (epsilon, exponent);
+  return x + epsilon;
 }
 
 DEC_TYPE
